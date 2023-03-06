@@ -9,7 +9,7 @@ use Magento\Framework\Exception\InvalidArgumentException;
 use Magento\Store\Model\StoreManagerInterface;
 
 /**
- *
+ * Service Class for retrieving store overviews
  */
 class StoreOverviewService implements StoreOverviewServiceInterface
 {
@@ -37,26 +37,26 @@ class StoreOverviewService implements StoreOverviewServiceInterface
     public function findStoreOverviewData($scopeId = null, $scope = 'store')
     {
         if ($scopeId === null) {
-            $retriever = function() {
+            $retriever = function () {
                 return $this->storeManager->getWebsites();
             };
         } else {
             switch ($scope) {
                 case \Magento\Store\Model\ScopeInterface::SCOPE_WEBSITE:
                 case \Magento\Store\Model\ScopeInterface::SCOPE_WEBSITES:
-                    $retriever = function() use ($scopeId) {
+                    $retriever = function () use ($scopeId) {
                         return [$this->storeManager->getWebsite($scopeId)];
                     };
                     break;
                 case \Magento\Store\Model\ScopeInterface::SCOPE_GROUP:
                 case \Magento\Store\Model\ScopeInterface::SCOPE_GROUPS:
-                    $retriever = function() use ($scopeId) {
+                    $retriever = function () use ($scopeId) {
                         return [$this->storeManager->getGroup($scopeId)];
                     };
                     break;
                 case \Magento\Store\Model\ScopeInterface::SCOPE_STORE:
                 case \Magento\Store\Model\ScopeInterface::SCOPE_STORES:
-                    $retriever = function() use ($scopeId) {
+                    $retriever = function () use ($scopeId) {
                         return [$this->storeManager->getStore($scopeId)];
                     };
                     break;
