@@ -1,0 +1,6 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="BroCode\StoreOverview\Api\StoreOverviewServiceInterface" type="BroCode\StoreOverview\Model\StoreOverviewService" />
+    <preference for="BroCode\StoreOverview\Api\Data\StoreOverviewDataInterface" type="\BroCode\StoreOverview\Model\Data\StoreOverviewData"/>
+
+</config>
