@@ -30,7 +30,10 @@ class StoreOverviewDataMapper
      * @var LogoPathResolver
      */
     protected $logoPathResolver;
-    private StoreManagerInterface $storeManager;
+    /**
+     * @var StoreManagerInterface
+     */
+    protected $storeManager;
 
     /**
      * @param ScopeConfigInterface $scopeConfig
@@ -75,12 +78,12 @@ class StoreOverviewDataMapper
     public function createWebsiteElement($element, $website)
     {
         $children = array_map(
-            function($store) {
+            function ($store) {
                 return $this->map($store);
             },
             array_filter(
                 $this->storeManager->getStores(),
-                function($store) use ($website) {
+                function ($store) use ($website) {
                     return $store->getWebsiteId() == $website->getId();
                 }
             )
@@ -129,7 +132,8 @@ class StoreOverviewDataMapper
         if ($storeLogoPath !== null) {
             $storeLogoPath = Logo::UPLOAD_DIR . '/' . $storeLogoPath;
         }
-        return ($scopeElement!==null?$scopeElement->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA):'') . $storeLogoPath;
+        return ($scopeElement!==null?$scopeElement->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA):'')
+            . $storeLogoPath;
     }
 
     protected function getUrl($scopeId, $scope)
