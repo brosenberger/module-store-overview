@@ -10,6 +10,7 @@ use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Service Class for retrieving store overviews
+ * @author Benjamin Rosenberger <<bensch.rosenberger@gmail.com>>
  */
 class StoreOverviewService implements StoreOverviewServiceInterface
 {

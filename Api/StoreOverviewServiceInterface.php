@@ -5,7 +5,7 @@ namespace BroCode\StoreOverview\Api;
 use BroCode\StoreOverview\Api\Data\StoreOverviewDataInterface;
 
 /**
- *
+ * @author Benjamin Rosenberger <<bensch.rosenberger@gmail.com>>
  */
 interface StoreOverviewServiceInterface
 {

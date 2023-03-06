@@ -3,7 +3,7 @@
 namespace BroCode\StoreOverview\Api\Data;
 
 /**
- *
+ * @author Benjamin Rosenberger <<bensch.rosenberger@gmail.com>>
  */
 interface StoreOverviewDataInterface
 {

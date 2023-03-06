@@ -9,7 +9,7 @@ use Magento\Directory\Helper\Data as DirectoryHelper;
 use Magento\Framework\Json\Helper\Data as JsonHelper;
 
 /**
- *
+ * .
  */
 class StoreList extends Template
 {
@@ -40,7 +40,8 @@ class StoreList extends Template
     /**
      * @return \BroCode\StoreOverview\Api\Data\StoreOverviewDataInterface[]
      */
-    public function getStoreOverViewData() {
+    public function getStoreOverViewData()
+    {
         if ($this->getParam('store')) {
             return $this->overviewService->findStoreOverviewData(
                 $this->getParam('store'),

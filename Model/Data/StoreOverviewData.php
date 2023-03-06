@@ -6,7 +6,7 @@ use BroCode\StoreOverview\Api\Data\StoreOverviewDataInterface;
 use Magento\Framework\DataObject;
 
 /**
- * .
+ * @author Benjamin Rosenberger <<bensch.rosenberger@gmail.com>>
  */
 class StoreOverviewData extends DataObject implements StoreOverviewDataInterface
 {

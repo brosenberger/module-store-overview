@@ -16,6 +16,9 @@ use Magento\Store\Model\ScopeInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Theme\ViewModel\Block\Html\Header\LogoPathResolver;
 
+/**
+ * @author Benjamin Rosenberger <<bensch.rosenberger@gmail.com>>
+ */
 class StoreOverviewDataMapper
 {
     /**
