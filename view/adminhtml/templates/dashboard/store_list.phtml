@@ -6,28 +6,28 @@ $storeOverviewData = $block->getStoreOverViewData();
 <style>
     .dashboard-store-overview .card { padding: 10px; margin: 10px; background-color: lightgrey; border: 1px solid black; border-radius: 20px; filter:drop-shadow(5px 5px 0.75rem gray) }
     .dashboard-store-overview .card .card-title {font-weight: 700; text-align: center;}
-    .dashboard-store-overview .card .card-title img {margin-top: 10px;}
+    .dashboard-store-overview .card .card-title img {margin-top: 10px; height: 100px; object-fit: contain; }
     .dashboard-store-overview .card .action {width: 100%; margin-top: 10px; }
+    .dashboard-store-overview .dashboard-item-content {display: grid; grid-template-columns: repeat(6, 1fr);}
 </style>
 <div class="dashboard-container row">
     <div class="dashboard-item dashboard-store-overview">
         <div class="dashboard-item-title"><?= $block->escapeHtml(__('Store Overview (%s websites)', count($storeOverviewData ))) ?></div>
         <div class="dashboard-item-content">
             <?php foreach ($storeOverviewData as $data): ?>
-            <div class="col-m-2 card">
-                <div class="card-title">
-                    <span><?= $block->escapeHtml($data->getName()) ?> <i>(<?= $block->escapeHtml($data->getCode()) ?>)</i></span>
-                    <img src="<?= $block->escapeHtmlAttr($data->getLogo())?>"/>
+                <div class="card">
+                    <div class="card-title">
+                        <span><?= $block->escapeHtml($data->getName()) ?> <i>(<?= $block->escapeHtml($data->getCode()) ?>)</i></span>
+                        <img src="<?= $block->escapeHtmlAttr($data->getLogo())?>"/>
+                    </div>
+                    <div class="card-content">
+                        <?php foreach ($data->getChildren() as $store): ?>
+                            <?php if ($store->getActive()): ?><a href="<?= $block->escapeHtmlAttr($store->getUrl())?>" target="_blank"><?php endif; ?>
+                            <span class="action <?= $store->getDefault()?'action-primary':'action-secondary'?>"><?= $block->escapeHtml($store->getName()) ?> <i>(<?= $block->escapeHtml($store->getCode()) ?>)</i></span>
+                            <?php if ($store->getActive()): ?></a><?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-                <div class="card-content">
-                    <?php foreach ($data->getChildren() as $store): ?>
-                    <?php if ($store->getActive()): ?><a href="<?= $block->escapeHtmlAttr($store->getUrl())?>" target="_blank"><?php endif; ?>
-                        <span class="action <?= $store->getDefault()?'action-primary':'action-secondary'?>"><?= $block->escapeHtml($store->getName()) ?> <i>(<?= $block->escapeHtml($store->getCode()) ?>)</i></span>
-                    <?php if ($store->getActive()): ?></a><?php endif; ?>
-                    <?php endforeach; ?>
-                    </ul>
-                </div>
-            </div>
             <?php endforeach; ?>
         </div>
     </div>
