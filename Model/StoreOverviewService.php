@@ -2,6 +2,7 @@
 
 namespace BroCode\StoreOverview\Model;
 
+use BroCode\StoreOverview\Api\Data\StoreOverviewDataInterface;
 use BroCode\StoreOverview\Api\StoreOverviewServiceInterface;
 use BroCode\StoreOverview\Model\StoreOverviewDataMapper;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -72,7 +73,14 @@ class StoreOverviewService implements StoreOverviewServiceInterface
             },
             $retriever()
         );
-
+        uasort(
+            $storeOverData,
+            function($a, $b) {
+                /** @var StoreOverviewDataInterface $a */
+                /** @var StoreOverviewDataInterface $b */
+                return strcmp($a->getName(), $b->getName());
+            }
+        );
         return $storeOverData;
     }
 }
