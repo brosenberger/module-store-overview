@@ -63,7 +63,7 @@ class StoreOverviewService implements StoreOverviewServiceInterface
                     };
                     break;
                 default:
-                    throw new InvalidArgumentException(__('Invalid Scope given: %s', $scope));
+                    throw new InvalidArgumentException(__('Invalid Scope given: %1', $scope));
             }
         }
 

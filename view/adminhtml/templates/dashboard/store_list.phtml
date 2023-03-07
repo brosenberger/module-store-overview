@@ -12,7 +12,7 @@ $storeOverviewData = $block->getStoreOverViewData();
 </style>
 <div class="dashboard-container row">
     <div class="dashboard-item dashboard-store-overview">
-        <div class="dashboard-item-title"><?= $block->escapeHtml(__('Store Overview (%s websites)', count($storeOverviewData ))) ?></div>
+        <div class="dashboard-item-title"><?= $block->escapeHtml(__('Store Overview (%1 websites)', count($storeOverviewData ))) ?></div>
         <div class="dashboard-item-content">
             <?php foreach ($storeOverviewData as $data): ?>
                 <div class="card">
