@@ -23,7 +23,7 @@ interface StoreOverviewDataInterface
 
     /**
      * @param integer $id
-     * @return StoreOverviewDataInterface
+     * @return \BroCode\StoreOverview\Api\Data\StoreOverviewDataInterface
      */
     public function setId($id);
 
@@ -78,7 +78,7 @@ interface StoreOverviewDataInterface
 
     /**
      * @param boolean $default
-     * @return StoreOverviewDataInterface
+     * @return \BroCode\StoreOverview\Api\Data\StoreOverviewDataInterface
      */
     public function setDefault($default);
 
@@ -89,7 +89,7 @@ interface StoreOverviewDataInterface
 
     /**
      * @param boolean $active
-     * @return StoreOverviewDataInterface
+     * @return \BroCode\StoreOverview\Api\Data\StoreOverviewDataInterface
      */
     public function setActive($active);
 

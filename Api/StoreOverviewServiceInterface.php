@@ -12,7 +12,7 @@ interface StoreOverviewServiceInterface
     /**
      * @param string|int $scopeId
      * @param string $scope
-     * @return StoreOverviewDataInterface[]
+     * @return \BroCode\StoreOverview\Api\Data\StoreOverviewDataInterface[]
      */
     public function findStoreOverviewData($scopeId = null, $scope = 'store');
 }
