@@ -2,6 +2,7 @@
 // @codingStandardsIgnoreFile
 /** @var \BroCode\StoreOverview\Block\Adminhtml\Dashboard\StoreList $block */
 $storeOverviewData = $block->getStoreOverViewData();
+$showStoreLogo = $block->showStoreLogo();
 ?>
 <style>
     .dashboard-store-overview .card { padding: 10px; margin: 10px; background-color: lightgrey; border: 1px solid black; border-radius: 20px; filter:drop-shadow(5px 5px 0.75rem gray) }
@@ -18,7 +19,9 @@ $storeOverviewData = $block->getStoreOverViewData();
                 <div class="card">
                     <div class="card-title">
                         <span><?= $block->escapeHtml($data->getName()) ?> <i>(<?= $block->escapeHtml($data->getCode()) ?>)</i></span>
+                        <?php if ($showStoreLogo): ?>
                         <img src="<?= $block->escapeHtmlAttr($data->getLogo())?>"/>
+                        <?php endif; ?>
                     </div>
                     <div class="card-content">
                         <?php foreach ($data->getChildren() as $store): ?>

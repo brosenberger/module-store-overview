@@ -2,6 +2,7 @@
 
 namespace BroCode\StoreOverview\Block\Adminhtml\Dashboard;
 
+use BroCode\StoreOverview\Api\Constants;
 use BroCode\StoreOverview\Api\StoreOverviewServiceInterface;
 use Magento\Backend\Block\Template;
 use Magento\Backend\Block\Template\Context;
@@ -59,5 +60,18 @@ class StoreList extends Template
             );
         }
         return $this->overviewService->findStoreOverviewData();
+    }
+
+    public function showStoreLogo()
+    {
+        return $this->_scopeConfig->getValue(Constants::CONFIG_DASHBOARD_SHOWSTORELOGO) == true;
+    }
+
+    public function toHtml()
+    {
+        if ($this->_scopeConfig->getValue(Constants::CONFIG_DASHBOARD_ENABLED)) {
+            return parent::toHtml();
+        }
+        return '';
     }
 }

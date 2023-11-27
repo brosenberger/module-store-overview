@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <brocode_storeoverview>
+            <general>
+                <dashboard_enabled>1</dashboard_enabled>
+                <show_store_logo>1</show_store_logo>
+            </general>
+        </brocode_storeoverview>
+    </default>
+</config>
