@@ -94,11 +94,15 @@ class StoreOverviewDataMapper
         $element->setId($website->getId())
             ->setName($website->getName())
             ->setCode($website->getCode())
-            ->setLogo(reset($children)->getLogo())
             ->setUrl($this->getUrl($website->getId(), ScopeInterface::SCOPE_WEBSITE))
             ->setDefault($website->getIsDefault()==true)
             ->setActive(true)
             ->setChildren($children);
+
+        $firstChild = reset($children);
+        if ($firstChild){
+            $element->setLogo($firstChild->getLogo());
+        }
 
         return $element;
     }
