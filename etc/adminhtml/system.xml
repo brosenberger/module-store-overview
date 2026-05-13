@@ -15,6 +15,11 @@
                     <label>Show Store Logo</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="hide_inactive" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Hide Inactive Websites by Default</label>
+                    <comment>Initial state of the "Hide inactive Websites" checkbox on the admin dashboard. Per-user choice is persisted in localStorage and overrides this default.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
             </group>
         </section>
     </system>

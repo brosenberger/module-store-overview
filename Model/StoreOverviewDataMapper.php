@@ -91,12 +91,16 @@ class StoreOverviewDataMapper
                 }
             )
         );
+        $hasActiveChild = !empty(array_filter(
+            $children,
+            static fn (StoreOverviewDataInterface $child) => (bool) $child->getActive()
+        ));
         $element->setId($website->getId())
             ->setName($website->getName())
             ->setCode($website->getCode())
             ->setUrl($this->getUrl($website->getId(), ScopeInterface::SCOPE_WEBSITE))
             ->setDefault($website->getIsDefault()==true)
-            ->setActive(true)
+            ->setActive($hasActiveChild)
             ->setChildren($children);
 
         $firstChild = reset($children);

@@ -5,6 +5,7 @@
             <general>
                 <dashboard_enabled>1</dashboard_enabled>
                 <show_store_logo>1</show_store_logo>
+                <hide_inactive>0</hide_inactive>
             </general>
         </brocode_storeoverview>
     </default>

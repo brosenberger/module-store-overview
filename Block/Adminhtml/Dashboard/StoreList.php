@@ -3,6 +3,7 @@
 namespace BroCode\StoreOverview\Block\Adminhtml\Dashboard;
 
 use BroCode\StoreOverview\Api\Constants;
+use BroCode\StoreOverview\Api\Data\StoreOverviewDataInterface;
 use BroCode\StoreOverview\Api\StoreOverviewServiceInterface;
 use Magento\Backend\Block\Template;
 use Magento\Backend\Block\Template\Context;
@@ -65,6 +66,23 @@ class StoreList extends Template
     public function showStoreLogo()
     {
         return $this->_scopeConfig->getValue(Constants::CONFIG_DASHBOARD_SHOWSTORELOGO) == true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHideInactive(): bool
+    {
+        return (bool) $this->_scopeConfig->getValue(Constants::CONFIG_DASHBOARD_HIDE_INACTIVE);
+    }
+
+    /**
+     * @param \BroCode\StoreOverview\Api\Data\StoreOverviewDataInterface[] $data
+     * @return int
+     */
+    public function getInactiveWebsiteCount(array $data): int
+    {
+        return count(array_filter($data, static fn (StoreOverviewDataInterface $website) => !$website->getActive()));
     }
 
     public function toHtml()

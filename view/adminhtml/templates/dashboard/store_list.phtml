@@ -3,20 +3,40 @@
 /** @var \BroCode\StoreOverview\Block\Adminhtml\Dashboard\StoreList $block */
 $storeOverviewData = $block->getStoreOverViewData();
 $showStoreLogo = $block->showStoreLogo();
+$hideInactiveDefault = $block->getHideInactive();
+$inactiveCount = $block->getInactiveWebsiteCount($storeOverviewData);
 ?>
 <style>
+    .dashboard-store-overview { position: relative; }
     .dashboard-store-overview .card { padding: 10px; margin: 10px; background-color: lightgrey; border: 1px solid black; border-radius: 20px; filter:drop-shadow(5px 5px 0.75rem gray) }
     .dashboard-store-overview .card .card-title {font-weight: 700; text-align: center;}
     .dashboard-store-overview .card .card-title img {margin-top: 10px; height: 100px; object-fit: contain; }
     .dashboard-store-overview .card .action {width: 100%; margin-top: 10px; }
     .dashboard-store-overview .dashboard-item-content {display: grid; grid-template-columns: repeat(6, 1fr);}
+    .dashboard-store-overview > .hide-inactive-toggle { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .dashboard-store-overview .dashboard-item-title { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .dashboard-store-overview .hide-inactive-label { cursor: pointer; font-weight: normal; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+    .dashboard-store-overview .hide-inactive-label::before { content: ''; width: 14px; height: 14px; border: 1px solid #888; background: #fff; display: inline-block; flex-shrink: 0; }
+    .dashboard-store-overview .hide-inactive-toggle:checked + .dashboard-item-title .hide-inactive-label::before { background: #1f78d1; border-color: #1f78d1; content: '\2713'; color: #fff; font-size: 11px; line-height: 14px; text-align: center; }
+    .dashboard-store-overview .card.is-inactive { opacity: 0.45; filter: drop-shadow(5px 5px 0.75rem gray) grayscale(1); position: relative; }
+    .dashboard-store-overview .card.is-inactive::after { content: 'inactive'; position: absolute; top: 8px; right: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; background: #999; padding: 2px 8px; border-radius: 10px; }
+    .dashboard-store-overview .hide-inactive-toggle:checked ~ .dashboard-item-content .card.is-inactive { display: none; }
 </style>
 <div class="dashboard-container row">
     <div class="dashboard-item dashboard-store-overview">
-        <div class="dashboard-item-title"><?= $block->escapeHtml(__('Store Overview (%1 websites)', count($storeOverviewData ))) ?></div>
+        <input type="checkbox"
+               id="storeoverview-hide-inactive"
+               class="hide-inactive-toggle"
+            <?= $hideInactiveDefault ? 'checked="checked"' : '' ?> />
+        <div class="dashboard-item-title">
+            <span><?= $block->escapeHtml(__('Store Overview (%1 websites)', count($storeOverviewData))) ?></span>
+            <label for="storeoverview-hide-inactive" class="hide-inactive-label">
+                <?= $block->escapeHtml(__('Hide inactive Websites (%1)', $inactiveCount)) ?>
+            </label>
+        </div>
         <div class="dashboard-item-content">
             <?php foreach ($storeOverviewData as $data): ?>
-                <div class="card">
+                <div class="card<?= $data->getActive() ? '' : ' is-inactive' ?>">
                     <div class="card-title">
                         <span><?= $block->escapeHtml($data->getName()) ?> <i>(<?= $block->escapeHtml($data->getCode()) ?>)</i></span>
                         <?php if ($showStoreLogo): ?>
@@ -35,3 +55,17 @@ $showStoreLogo = $block->showStoreLogo();
         </div>
     </div>
 </div>
+<script>
+(function () {
+    var cb = document.getElementById('storeoverview-hide-inactive');
+    if (!cb) { return; }
+    var KEY = 'brocode_storeoverview_hide_inactive';
+    var stored = window.localStorage.getItem(KEY);
+    if (stored !== null) {
+        cb.checked = stored === '1';
+    }
+    cb.addEventListener('change', function () {
+        window.localStorage.setItem(KEY, cb.checked ? '1' : '0');
+    });
+})();
+</script>
