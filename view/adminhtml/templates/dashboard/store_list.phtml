@@ -15,12 +15,16 @@ $inactiveCount = $block->getInactiveWebsiteCount($storeOverviewData);
     .dashboard-store-overview .dashboard-item-content {display: grid; grid-template-columns: repeat(6, 1fr);}
     .dashboard-store-overview > .hide-inactive-toggle { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .dashboard-store-overview .dashboard-item-title { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .dashboard-store-overview .hide-inactive-label { cursor: pointer; font-weight: normal; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+    .dashboard-store-overview .dashboard-title-actions { display: inline-flex; align-items: center; gap: 12px; }
+    .dashboard-store-overview .hide-inactive-label { cursor: pointer; font-weight: normal; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
     .dashboard-store-overview .hide-inactive-label::before { content: ''; width: 14px; height: 14px; border: 1px solid #888; background: #fff; display: inline-block; flex-shrink: 0; }
     .dashboard-store-overview .hide-inactive-toggle:checked + .dashboard-item-title .hide-inactive-label::before { background: #1f78d1; border-color: #1f78d1; content: '\2713'; color: #fff; font-size: 11px; line-height: 14px; text-align: center; }
     .dashboard-store-overview .card.is-inactive { opacity: 0.45; filter: drop-shadow(5px 5px 0.75rem gray) grayscale(1); position: relative; }
     .dashboard-store-overview .card.is-inactive::after { content: 'inactive'; position: absolute; top: 8px; right: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; background: #999; padding: 2px 8px; border-radius: 10px; }
     .dashboard-store-overview .hide-inactive-toggle:checked ~ .dashboard-item-content .card.is-inactive { display: none; }
+    .dashboard-store-overview .store-search-input { padding: 4px 8px; font-size: 13px; border: 1px solid #aaa; border-radius: 4px; width: 180px; outline: none; }
+    .dashboard-store-overview .store-search-input:focus { border-color: #1f78d1; }
+    .dashboard-store-overview .dashboard-item-content .card.search-hidden { display: none; }
 </style>
 <div class="dashboard-container row">
     <div class="dashboard-item dashboard-store-overview">
@@ -30,9 +34,15 @@ $inactiveCount = $block->getInactiveWebsiteCount($storeOverviewData);
             <?= $hideInactiveDefault ? 'checked="checked"' : '' ?> />
         <div class="dashboard-item-title">
             <span><?= $block->escapeHtml(__('Store Overview (%1 websites)', count($storeOverviewData))) ?></span>
-            <label for="storeoverview-hide-inactive" class="hide-inactive-label">
-                <?= $block->escapeHtml(__('Hide inactive Websites (%1)', $inactiveCount)) ?>
-            </label>
+            <div class="dashboard-title-actions">
+                <input type="text"
+                       id="storeoverview-search"
+                       class="store-search-input"
+                       placeholder="<?= $block->escapeHtmlAttr(__('Search stores...')) ?>" />
+                <label for="storeoverview-hide-inactive" class="hide-inactive-label">
+                    <?= $block->escapeHtml(__('Hide inactive Websites (%1)', $inactiveCount)) ?>
+                </label>
+            </div>
         </div>
         <div class="dashboard-item-content">
             <?php foreach ($storeOverviewData as $data): ?>
@@ -67,5 +77,22 @@ $inactiveCount = $block->getInactiveWebsiteCount($storeOverviewData);
     cb.addEventListener('change', function () {
         window.localStorage.setItem(KEY, cb.checked ? '1' : '0');
     });
+
+    var search = document.getElementById('storeoverview-search');
+    if (search) {
+        var cards = cb.closest('.dashboard-store-overview')
+            .querySelectorAll('.dashboard-item-content > .card');
+        search.addEventListener('input', function () {
+            var q = search.value.toLowerCase().trim();
+            cards.forEach(function (card) {
+                if (!q) {
+                    card.classList.remove('search-hidden');
+                    return;
+                }
+                var text = card.textContent.toLowerCase();
+                card.classList.toggle('search-hidden', text.indexOf(q) === -1);
+            });
+        });
+    }
 })();
 </script>
