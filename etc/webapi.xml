@@ -3,7 +3,7 @@
     <route url="/V1/storeoverviews/" method="GET">
         <service class="BroCode\StoreOverview\Api\StoreOverviewServiceInterface" method="findStoreOverviewData"/>
         <resources>
-            <resource ref="BroCode_StoreOverview"/>
+            <resource ref="BroCode_StoreOverview::config"/>
         </resources>
     </route>
 </routes>
